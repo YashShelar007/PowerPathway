@@ -3,6 +3,7 @@ import { Box, Button, Stack, TextField, Typography } from "@mui/material";
 
 import { exerciseOptions, fetchData } from "../utils/fetchData";
 import HorizontalScrollbar from "./HorizontalScrollbar";
+import { StorageClassAnalysisSchemaVersion } from "@aws-sdk/client-s3";
 
 const SearchExercises = ({ setExercises, bodyPart, setBodyPart }) => {
   const [search, setSearch] = useState("");
@@ -24,7 +25,7 @@ const SearchExercises = ({ setExercises, bodyPart, setBodyPart }) => {
   const handleSearch = async () => {
     if (search) {
       const exercisesData = await fetchData(
-        "https://exercisedb.p.rapidapi.com/exercises",
+        "https://exercisedb.p.rapidapi.com/exercises?limit=0&offset=0",
         exerciseOptions
       );
 
@@ -41,6 +42,7 @@ const SearchExercises = ({ setExercises, bodyPart, setBodyPart }) => {
       window.scrollTo({ top: 1800, left: 100, behavior: "smooth" });
 
       setSearch("");
+      console.log(searchedExercises);
       setExercises(searchedExercises);
     }
   };
